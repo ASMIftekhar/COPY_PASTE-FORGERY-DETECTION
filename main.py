@@ -103,22 +103,22 @@ def get_image_from_url(url, xrange=None, yrange=None) :
     # show results
 
 
-  #  if xrange is None and yrange is None :
-  #      pyplot.figure( figsize=(15,5) )
-  #      #pyplot.title('Original Image')
-  #      pyplot.subplot(131)
-  #      pyplot.imshow( big_img )
-  #      pyplot.title('ManTra-Net Input')
-  #      pyplot.subplot(132)
-  #      #pyplot.imshow( mask, cmap='gray' )
-  #      pyplot.imshow( big_res, cmap='gray' )
-  #      pyplot.title('Predicted Mask (ManTra-Net Output)')
-  #      pyplot.subplot(133)
-  #      #pyplot.imshow( np.round(np.expand_dims(mask,axis=-1) * img).astype('uint8'), cmap='jet' )
-  #      pyplot.imshow( np.round(np.expand_dims(big_res,axis=-1) * big_img).astype('uint8'), cmap='jet' )
-  #      pyplot.title('Highlighted Forged Regions')
-  #      #pyplot.suptitle('Decoded {} of size {} for {:.2f} seconds'.format( url, rgb.shape, ptime ) )
-  #      pyplot.show()
+    if xrange is None and yrange is None :
+        pyplot.figure( figsize=(15,5) )
+        #pyplot.title('Original Image')
+        pyplot.subplot(131)
+        pyplot.imshow( big_img )
+        pyplot.title('ManTra-Net Input')
+        pyplot.subplot(132)
+        #pyplot.imshow( mask, cmap='gray' )
+        pyplot.imshow( big_res, cmap='gray' )
+        pyplot.title('Predicted Mask (ManTra-Net Output)')
+        pyplot.subplot(133)
+        #pyplot.imshow( np.round(np.expand_dims(mask,axis=-1) * img).astype('uint8'), cmap='jet' )
+        pyplot.imshow( np.round(np.expand_dims(big_res,axis=-1) * big_img).astype('uint8'), cmap='jet' )
+        pyplot.title('Highlighted Forged Regions')
+        #pyplot.suptitle('Decoded {} of size {} for {:.2f} seconds'.format( url, rgb.shape, ptime ) )
+        pyplot.show()
     return big_res,big_img
 
 
