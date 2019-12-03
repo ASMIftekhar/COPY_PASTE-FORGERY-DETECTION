@@ -1,0 +1,19 @@
+ompiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.pkl
+*.so
+*.pyc
+*.pickle
+*.json
+*.swp
+*.pth.tar
+*.mat
+*.h5
+*.jpg
+*.png
