@@ -43,7 +43,7 @@ pip3 install -r requirements.txt
 
 run
 ```
-CUDA_VISIBLE_DEVICES=<id of one the gpu> python3 main.py -l<path_to_image_directory>  -d <path where the results from ManTranet will be Stored>
+CUDA_VISIBLE_DEVICES=<id of one of the gpu> python3 main.py -l<path_to_image_directory>  -d <path where the results from ManTranet will be Stored>
 
 
 ```
