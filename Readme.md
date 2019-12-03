@@ -1,4 +1,4 @@
-## Detecting Copy-Move Forgery Using Mantranet with Morphological Processin
+## Detecting Copy-Move Forgery Using Mantranet with Morphology Based Segmentation
 This Repository contains code for the class project ECE 278A 
 For cloning the repo type:
 
