@@ -16,6 +16,8 @@ import imutils
 from tqdm import tqdm
 with open('res_test.pickle','rb')as fp:
 	al=pickle.load(fp) 
+#with open('res.pickle','rb')as fp:
+#	al=pickle.load(fp) 
 class ForkedPdb(pdb.Pdb):
     """A Pdb subclass that may be used
     from a forked multiprocessing child
@@ -35,7 +37,7 @@ def cal_dist(params):
 	#ForkedPdb().set_trace()
 	#print(type(a))
 	dist=np.linalg.norm(a-b)
-	if abs(dist) < 75 :
+	if abs(dist) < 150 :
 		return True
 	else:
 		return False
@@ -49,7 +51,7 @@ def find_if_close(cnt1,cnt2):
 	index=0
 	dist=False
 	pool = multiprocessing.Pool(num_core)
-	res=pool.map(cal_dist,paramlist[index:index+num_core])
+	res=pool.map(cal_dist,paramlist)
 	pool.close() 
 #	for k in range(max_iter):   
 #		pool = multiprocessing.Pool(num_core)
@@ -67,6 +69,7 @@ def find_if_close(cnt1,cnt2):
 for id in tqdm(range(1,11)):
 	second=al[id][0] 
 	src='test_images/'+str(id)+'.jpg'
+	#src='all/'+str(id)+'.jpg'
 
 	cl_img=np.array(Image.open(src),'uint8')
 	img=np.array(second*255,dtype='uint8')
@@ -101,7 +104,7 @@ for id in tqdm(range(1,11)):
 	cnts = sorted(contours_p, key = cv2.contourArea, reverse = True)
 	#for cnt in cnts:
 	#import pdb;pdb.set_trace()
-	contours=cnts[0:18]
+	contours=cnts[0:25]
 	LENGTH = len(contours)
 	status = np.zeros((LENGTH,1))
 	for i,cnt1 in enumerate(contours):
@@ -128,47 +131,9 @@ for id in tqdm(range(1,11)):
 			hull = cv2.convexHull(cont)
 			unified.append(hull)
 	print('Combining regions is done')
-	meta='metadatatest/'+str(id)+'.pickle'
+	meta='metadatatest_f/'+str(id)+'.pickle'
 	with open(meta,'wb')as fp:pickle.dump(unified,fp,protocol=pickle.HIGHEST_PROTOCOL)
 	print('This image is done')	
-	#with open(meta,'rb')as fp:unified=pickle.load(fp)
-	#import pdb;pdb.set_trace()
-#	mask_mid=np.ones(img.shape, np.uint8)
-#	mask = np.ones(img.shape, np.uint8)
-#	cv2.fillPoly(mask, unified[0:2], color=(0))
-#	cv2.fillPoly(mask_mid, contours[0:18], color=(0))
-#	#plt.figure()
-#	
-#	plt.figure(figsize=(15,15))
-#	plt.subplot(221)
-#	plt.imshow(img,cmap='gray') 
-#	
-#	#plt.imshow(np.round(np.expand_dims(img,axis=-1) * cl_img).astype('uint8'), cmap='jet' )
-#	plt.title('Output From MNET')
-#
-#	plt.subplot(222)
-#	plt.imshow(mask_mid,cmap='binary')
-#	#plt.imshow(np.round(np.expand_dims(mask,axis=-1) * cl_img).astype('uint8'), cmap='jet' )
-#
-#	plt.title('Filtered Image After Morphological Operations')
-#
-#	plt.subplot(223)
-#	plt.imshow(mask,cmap='binary')
-#	#plt.imshow(np.round(np.expand_dims(mask,axis=-1) * cl_img).astype('uint8'), cmap='jet' )
-#
-#	plt.title('Filtered Image After Contour Selection')
-#	plt.subplot(224)
-#	#plt.imshow(mask,cmap='binary')
-#	plt.imshow(np.round(np.expand_dims(mask,axis=-1) * cl_img).astype('uint8'), cmap='jet' )
-#	plt.title('Enforced in the Original Image')
-#	
-#	file_name='result_final/'+str(id)+'.jpg'
-##	file_name='res_raph/'+str(i)+'.mat'
-#	plt.savefig(file_name)
-#	scipy.io.savemat(file_name, {'binary':mask})
-	#import pdb;pdb.set_trace()
-
-#	plt.show()
 	
 import pdb;pdb.set_trace()
 

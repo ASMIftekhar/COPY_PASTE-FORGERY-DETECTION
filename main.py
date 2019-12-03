@@ -1,33 +1,33 @@
 import os
 import sys
-manTraNet_root = '/home/iftekhar/project2ece278/ManTraNet-master/'
+import numpy as np 
+import cv2
+import requests
+from datetime import datetime 
+from PIL import Image
+from io import BytesIO
+from matplotlib import pyplot
+import tensorflow as tf
+from keras.backend.tensorflow_backend import set_session
+import pickle
+import math
+import glob
+import argparse
+
+
+
+
+manTraNet_root = './'
 manTraNet_srcDir = os.path.join( manTraNet_root, 'src' )
 sys.path.insert( 0, manTraNet_srcDir )
 manTraNet_modelDir = os.path.join( manTraNet_root, 'pretrained_weights' )
 manTraNet_dataDir = os.path.join( manTraNet_root, 'data' )
 sample_file = os.path.join( manTraNet_dataDir, 'samplePairs.csv' )
-import numpy as np 
-import cv2
-import requests
-from datetime import datetime 
 import modelCore
-from PIL import Image
-from io import BytesIO
-from matplotlib import pyplot
-#from get_model_size import check_size
-import tensorflow as tf
-import numpy as np  
-from keras.backend.tensorflow_backend import set_session
-import pickle
-import math
-config = tf.ConfigProto()
-config.gpu_options.per_process_gpu_memory_fraction = 0.3 
-set_session(tf.Session(config=config))
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-#with open( sample_file ) as IN :
-#    sample_pairs = [line.strip().split(',') for line in IN.readlines() ]
-#L = len(sample_pairs)
-#print("INFO: in total, load", L, "samples")
+
+
 
 def get_a_random_pair() :
     idx = np.random.randint(0,L)
@@ -101,31 +101,47 @@ def get_image_from_url(url, xrange=None, yrange=None) :
             
     ptime = ptime.total_seconds()
     # show results
-    if xrange is None and yrange is None :
-        pyplot.figure( figsize=(15,5) )
-        pyplot.title('Original Image')
-        pyplot.subplot(131)
-        pyplot.imshow( big_img )
-        pyplot.title('Forged Image (ManTra-Net Input)')
-        pyplot.subplot(132)
-        #pyplot.imshow( mask, cmap='gray' )
-        pyplot.imshow( big_res, cmap='gray' )
-        pyplot.title('Predicted Mask (ManTra-Net Output)')
-        pyplot.subplot(133)
-        #pyplot.imshow( np.round(np.expand_dims(mask,axis=-1) * img).astype('uint8'), cmap='jet' )
-        pyplot.imshow( np.round(np.expand_dims(big_res,axis=-1) * big_img).astype('uint8'), cmap='jet' )
-        pyplot.title('Highlighted Forged Regions')
-        #pyplot.suptitle('Decoded {} of size {} for {:.2f} seconds'.format( url, rgb.shape, ptime ) )
-        pyplot.show()
-    return big_res[0:size[0],0:size[1]],big_img
-all_res={}
-for name in range(1,11):
-    file_name='test_images/'+str(name)+'.jpg'
 
-    #list = os.listdir(dir) # dir is your directory path
-    #number_files = len(list)
-    mask,img=get_image_from_url(file_name)
-    all_res[name]=[mask,img]
-    print('{} image is done'.format(str(name)))
-#with open('res.pickle','wb')as fp:pickle.dump(all_res,fp,protocol=pickle.HIGHEST_PROTOCOL)
+
+  #  if xrange is None and yrange is None :
+  #      pyplot.figure( figsize=(15,5) )
+  #      #pyplot.title('Original Image')
+  #      pyplot.subplot(131)
+  #      pyplot.imshow( big_img )
+  #      pyplot.title('ManTra-Net Input')
+  #      pyplot.subplot(132)
+  #      #pyplot.imshow( mask, cmap='gray' )
+  #      pyplot.imshow( big_res, cmap='gray' )
+  #      pyplot.title('Predicted Mask (ManTra-Net Output)')
+  #      pyplot.subplot(133)
+  #      #pyplot.imshow( np.round(np.expand_dims(mask,axis=-1) * img).astype('uint8'), cmap='jet' )
+  #      pyplot.imshow( np.round(np.expand_dims(big_res,axis=-1) * big_img).astype('uint8'), cmap='jet' )
+  #      pyplot.title('Highlighted Forged Regions')
+  #      #pyplot.suptitle('Decoded {} of size {} for {:.2f} seconds'.format( url, rgb.shape, ptime ) )
+  #      pyplot.show()
+    return big_res,big_img
+
+
+
+all_res={}
+
+
+
+if __name__ == '__main__':
+	parser=argparse.ArgumentParser()
+	parser.add_argument('-l','--location',nargs='+',required=True,help='Path to the folder of the images to be analysed, expecting only .jpg images in that folder')
+	parser.add_argument('-d','--destination',nargs='+',required=True,help='Name of the file to store')
+	args=parser.parse_args()
+	path=args.location
+	dest=args.destination
+	fullpath=path[0]+'/*.jpg'
+	dest_name=dest[0]+'.pickle'
+	for index,filename in enumerate(glob.glob(fullpath)):
+		key=filename.split('/')[-1].split('.')[0]
+		#import pdb;pdb.set_trace()
+		#file_name='test_images/'+str(name)+'.jpg'
+		mask,img=get_image_from_url(filename)
+		all_res[key]=[mask,img]
+		print('Image no {} is done'.format(str(index+1)))
+with open(dest_name,'wb')as fp:pickle.dump(all_res,fp,protocol=pickle.HIGHEST_PROTOCOL)
 import pdb;pdb.set_trace()

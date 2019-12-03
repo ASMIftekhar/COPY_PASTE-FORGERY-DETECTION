@@ -14,7 +14,9 @@ import pdb
 import sys
 import imutils
 from tqdm import tqdm
-with open('res.pickle','rb')as fp:
+#with open('res.pickle','rb')as fp:
+#	al=pickle.load(fp) 
+with open('res_test.pickle','rb')as fp:
 	al=pickle.load(fp) 
 class ForkedPdb(pdb.Pdb):
     """A Pdb subclass that may be used
@@ -59,7 +61,8 @@ def find_if_close(cnt1,cnt2):
 	#ForkedPdb().set_trace()
 for id in tqdm(range(1,11)):
 	second=al[id][0] 
-	src='all/'+str(id)+'.jpg'
+	#src='all/'+str(id)+'.jpg'
+	src='test_images/'+str(id)+'.jpg'
 
 	cl_img=np.array(Image.open(src),'uint8')
 	img=np.array(second*255,dtype='uint8')
@@ -121,7 +124,9 @@ for id in tqdm(range(1,11)):
 #			hull = cv2.convexHull(cont)
 #			unified.append(hull)
 #	print('filtering is done')
-	meta='metadata2/'+str(id)+'.pickle'
+	meta='metadatatest/'+str(id)+'.pickle'
+	#meta='metadatatrain/'+str(id)+'.pickle'
+	#meta='metadata2/'+str(id)+'.pickle'
 	#with open(meta,'wb')as fp:pickle.dump(unified,fp,protocol=pickle.HIGHEST_PROTOCOL)
 	with open(meta,'rb')as fp:unified=pickle.load(fp)
 	#unified = sorted(unified, key = cv2.contourArea, reverse = True)
@@ -131,7 +136,7 @@ for id in tqdm(range(1,11)):
 #	cv2.drawContours(thresh,unified,-1,255,-1)
 	mask_mid=np.ones(img.shape, np.uint8)
 	mask = np.ones(img.shape, np.uint8)
-	cv2.fillPoly(mask, unified[0:2], color=(0))
+	cv2.fillPoly(mask, unified[0:1], color=(0))
 	cv2.fillPoly(mask_mid, contours[0:18], color=(0))
 	#plt.figure()
 	
@@ -158,9 +163,9 @@ for id in tqdm(range(1,11)):
 	plt.imshow(np.round(np.expand_dims(mask,axis=-1) * cl_img).astype('uint8'), cmap='jet' )
 	plt.title('Enforced in the Original Image')
 	
-	file_name='result_final/'+str(id)+'.jpg'
+	file_name='result_test/'+str(id)+'.jpg'
 #	file_name='res_raph/'+str(i)+'.mat'
-	#plt.savefig(file_name)
+	plt.savefig(file_name)
 	#print('This image is done')	
 #	scipy.io.savemat(file_name, {'binary':mask})
 	#import pdb;pdb.set_trace()
