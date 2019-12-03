@@ -10,7 +10,7 @@ git clone https://github.com/ASMIftekhar/COPY_MOVE.git
 
 This will copy the whole repository in your current directory
 
-To download all the precomputed results, you need to run the following command. This will download and put all the precomputed results in your current working directory
+To download all the precomputed results, you need to run the following command. This will download and put all the precomputed results in your current working directory. (To excute this you need to have wget and zip packages)
  
 ```
 bash setup.sh
