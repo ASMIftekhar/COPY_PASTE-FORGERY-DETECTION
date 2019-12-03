@@ -2,6 +2,7 @@ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download
 
 virtualenv -p /usr/bin/python3.6 copy_move
 source copy_move/bin/activate
-pip3 install requirements.txt
+pip3 -r install requirements.txt
+
 
 
