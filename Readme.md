@@ -16,7 +16,7 @@ To download all the precomputed results, you need to run the following command. 
 bash setup.sh
 
 ```
-### Requirements
+## Requirements
 All dependencies will be installed in a python3 virtual environment.
 
 ## Step 1: Create a python virtual environment
@@ -35,5 +35,50 @@ source <path_to_new_virtual_env>/bin/activate
 
 run 
 ```
-pip3 install -r requirements
+pip3 install -r requirements.txt
 ```
+
+
+## Running the inference from ManTranet
+
+run
+```
+CUDA_VISIBLE_DEVICES=<id of one the gpu> python3 main.py -l<path_to_image_directory>  -d <path where the results from ManTranet will be Stored>
+
+
+```
+For using dowloaded images run:
+```
+CUDA_VISIBLE_DEVICES=0 python3 main.py -l test_images -d test
+
+```
+
+## Doing Post Processing from the output of mantranet
+
+run
+```
+
+python3 post_pro.py -n <Number of Cores use for post processing> -l <path to the pickle file generated from ManTranet> -d <Path where the results of post-processing would be stored>
+
+```
+For using downloaded results run:
+```
+python3 post_pro.py -n 80 -l test -d test_metadata 
+
+```
+
+## Observing the results and saving them
+
+run
+```
+python3 show.py -l <path to the pickle file generated from ManTranet> -s <Path where the results of post-processing was stored> -d <Path where the final results would be stored>
+
+```
+For using downloaded results run:
+```
+python3 show.py -l test -s test_metadata -d test_result
+ 
+
+```
+
+
