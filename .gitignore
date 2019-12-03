@@ -14,6 +14,6 @@ ompiled source #
 *.swp
 *.pth.tar
 *.mat
-*.h5
+
 *.jpg
 *.png
