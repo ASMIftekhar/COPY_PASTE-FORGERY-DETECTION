@@ -67,6 +67,7 @@ def find_if_close(cnt1,cnt2,num_core):
 
 
 def combine_contours(al,dest_name,num_core):
+	
 	for id in tqdm(al):
 		#import pdb;pdb.set_trace()
 		global threshold
@@ -74,7 +75,7 @@ def combine_contours(al,dest_name,num_core):
 		scaled=(second.shape[0]*second.shape[1])/scaling_factor
 		threshold=math.ceil(scaled)*increment+base	 
 		im=np.array(second*255,dtype='uint8')
-
+		import pdb;pdb.set_trace()
 		morph = im.copy()
 
 		kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1))
@@ -119,8 +120,8 @@ def combine_contours(al,dest_name,num_core):
 				unified.append(hull)
 		print('Combining regions is done')
 		meta=dest_name+'/'+id+'.pickle'
-		with open(meta,'wb')as fp:pickle.dump([unified,mask],fp,protocol=pickle.HIGHEST_PROTOCOL)
-		import pdb;pdb.set_trace()
+		with open(meta,'wb')as fp:pickle.dump([unified,contours],fp,protocol=pickle.HIGHEST_PROTOCOL)
+		#import pdb;pdb.set_trace()
 		print('This image is done')	
 	
 
