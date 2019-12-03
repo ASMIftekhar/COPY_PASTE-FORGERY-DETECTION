@@ -16,6 +16,8 @@ To download all the precomputed results, you need to run the following command. 
 bash setup.sh
 
 ```
+Alternatively you can just download the results from [here.](https://drive.google.com/drive/u/1/folders/1cu1V81JcHj3o_VhCC4x1RlGieWEe2naN)
+
 ## Requirements
 All dependencies will be installed in a python3 virtual environment.
 
