@@ -24,10 +24,10 @@ config = tf.ConfigProto()
 config.gpu_options.per_process_gpu_memory_fraction = 0.3 
 set_session(tf.Session(config=config))
 
-with open( sample_file ) as IN :
-    sample_pairs = [line.strip().split(',') for line in IN.readlines() ]
-L = len(sample_pairs)
-print("INFO: in total, load", L, "samples")
+#with open( sample_file ) as IN :
+#    sample_pairs = [line.strip().split(',') for line in IN.readlines() ]
+#L = len(sample_pairs)
+#print("INFO: in total, load", L, "samples")
 
 def get_a_random_pair() :
     idx = np.random.randint(0,L)
