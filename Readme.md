@@ -3,7 +3,7 @@ This Repository contains code for the class project ECE 278A
 For cloning the repo type:
 
 ```
-git clone -r https://github.com/ASMIftekhar/COPY_MOVE_DETECTION.git
+git clone -r https://github.com/ASMIftekhar/COPY_MOVE.git
 
 ```
 
