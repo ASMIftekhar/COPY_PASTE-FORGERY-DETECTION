@@ -68,30 +68,38 @@ def show_image(al,path_mask,dest_name):
 		#plt.figure()
 		
 		plt.figure(figsize=(15,15))
-		plt.subplot(221)
+		plt.subplots_adjust(wspace=0.01,hspace=0.01)	
+		plt.subplot(231)
 		plt.imshow(img,cmap='gray') 
 		
 		#plt.imshow(np.round(np.expand_dims(img,axis=-1) * cl_img).astype('uint8'), cmap='jet' )
 		plt.title('Output From MNET')
 		plt.axis('off')
-		plt.subplot(222)
+		plt.subplot(232)
 		plt.imshow(mask_mid,cmap='binary')
 		#plt.imshow(np.round(np.expand_dims(mask,axis=-1) * cl_img).astype('uint8'), cmap='jet' )
 		plt.axis('off')
 
-		plt.title('Filtered Image After Morphological Operations')
+		plt.title('Output From Morphological Operations')
 
-		plt.subplot(223)
+		plt.subplot(233)
 		plt.imshow(mask,cmap='binary')
 		plt.axis('off')
 		#plt.imshow(np.round(np.expand_dims(mask,axis=-1) * cl_img).astype('uint8'), cmap='jet' )
 
 		plt.title('Segmented Image')
-		plt.subplot(224)
+		
+		plt.subplot(234)
+		plt.axis('off')
+		#plt.imshow(mask,cmap='binary')
+		plt.imshow(cl_img.astype('uint8'))
+		plt.title('Original Image')
+	
+		plt.subplot(235)
 		plt.axis('off')
 		#plt.imshow(mask,cmap='binary')
 		plt.imshow(np.round(np.expand_dims(mask,axis=-1) * cl_img).astype('uint8'), cmap='jet' )
-		plt.title('Enforced in the Original Image')
+		plt.title('Masked Image')
 		
 		file_name=dest_name+'/'+str(id)+'.jpg'
 	#	file_name='res_raph/'+str(i)+'.mat'
