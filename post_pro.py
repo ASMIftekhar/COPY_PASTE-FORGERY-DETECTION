@@ -75,11 +75,11 @@ def combine_contours(al,dest_name,num_core):
 		scaled=(second.shape[0]*second.shape[1])/scaling_factor
 		threshold=math.ceil(scaled)*increment+base	 
 		im=np.array(second*255,dtype='uint8')
-		#import pdb;pdb.set_trace()
+	#	import pdb;pdb.set_trace()
 		morph = im.copy()
 
-		kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1))
-		morph = cv2.morphologyEx(morph, cv2.MORPH_CLOSE, kernel)
+#		kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1))
+#		morph = cv2.morphologyEx(morph, cv2.MORPH_CLOSE, kernel)
 		
 		kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2, 2))
 		gradient_image = cv2.morphologyEx(morph, cv2.MORPH_GRADIENT, kernel)
