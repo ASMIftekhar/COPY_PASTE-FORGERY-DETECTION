@@ -73,19 +73,22 @@ def show_image(al,path_mask,dest_name):
 		
 		#plt.imshow(np.round(np.expand_dims(img,axis=-1) * cl_img).astype('uint8'), cmap='jet' )
 		plt.title('Output From MNET')
-
+		plt.axis('off')
 		plt.subplot(222)
 		plt.imshow(mask_mid,cmap='binary')
 		#plt.imshow(np.round(np.expand_dims(mask,axis=-1) * cl_img).astype('uint8'), cmap='jet' )
+		plt.axis('off')
 
 		plt.title('Filtered Image After Morphological Operations')
 
 		plt.subplot(223)
 		plt.imshow(mask,cmap='binary')
+		plt.axis('off')
 		#plt.imshow(np.round(np.expand_dims(mask,axis=-1) * cl_img).astype('uint8'), cmap='jet' )
 
-		plt.title('Filtered Image After Contour Selection')
+		plt.title('Segmented Image')
 		plt.subplot(224)
+		plt.axis('off')
 		#plt.imshow(mask,cmap='binary')
 		plt.imshow(np.round(np.expand_dims(mask,axis=-1) * cl_img).astype('uint8'), cmap='jet' )
 		plt.title('Enforced in the Original Image')
