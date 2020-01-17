@@ -1,4 +1,4 @@
-### Detecting Copy-Move Forgery Using Mantranet with Morphology Based Segmentation
+### Detecting Copy-Paste Forgery Using Mantranet with Morphology Based Segmentation
 This Repository contains the code for copy-move forgery Detection in images. The backbone network was taken from Mantranet (https://github.com/ISICV/ManTraNet). We just use this backbone for the inference pupose. We added morphology based post processing over the output from ManTraNet for our purpose.
    
 For cloning the repo type:
